@@ -30,7 +30,6 @@ app.use(routerReservation);
 
 const PORT = process.env.PORT
 
-
 db();
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)

@@ -1,12 +1,10 @@
-// middleware/security.js
-import helmet from 'helmet';
 import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+import helmet from 'helmet';
 
-// Rate limiter
 export const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 dakika
+  windowMs: 15 * 60 * 1000,
   max: 100,
-  keyGenerator: (req) => ipKeyGenerator(req) || req.ip, // IPv6 desteği
+  keyGenerator: ipKeyGenerator, // direkt ipKeyGenerator kullan
 });
 
 // Helmet security headers

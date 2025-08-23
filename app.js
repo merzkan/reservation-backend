@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import db from "./config/db.js";
 import { securityHeaders, limiter } from "./middleware/security.js";
-import { corsMiddleware } from "./middleware/cors.js";
+import { corsMiddleware } from './middleware/cors.js';
 
 import routerUsers from "./router/users.js";
 import routerHome from "./router/home.js";

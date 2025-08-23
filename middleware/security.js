@@ -1,10 +1,13 @@
-import helmet from 'helmet';
-import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
-export const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 dakika
+// IPv6 uyumlu rate limiter
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
   max: 100,
-  keyGenerator: ipKeyGenerator, // direkt ipKeyGenerator kullan
+  keyGenerator: rateLimit.ipKeyGenerator,
 });
 
-export const securityHeaders = helmet();
+const securityHeaders = helmet();
+
+module.exports = { limiter, securityHeaders };

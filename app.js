@@ -1,31 +1,31 @@
-import express from "express";
-import dotenv from "dotenv";
-import db from "./config/db.js";
-import { securityHeaders, limiter } from "./middleware/security.js";
-import { corsMiddleware } from './middleware/cors.js';
+const express = require("express");
+const dotenv = require("dotenv");
+const db = require("./config/db");
+const { securityHeaders, limiter } = require("./middleware/security");
+const corsMiddleware = require('./middleware/cors');
 
-import routerUsers from "./router/users.js";
-import routerHome from "./router/home.js";
-import routerLogin from "./router/login.js";
-import routerRegister from "./router/register.js";
-import routerReservation from "./router/reservation.js";
+const routerUsers = require("./router/users");
+const routerHome = require("./router/home");
+const routerLogin = require("./router/login");
+const routerRegister = require("./router/register");
+const routerReservation = require("./router/reservation");
 
 dotenv.config();
 
 const app = express();
 
-// 1️⃣ CORS en başta olmalı
+// CORS en başta
 app.use(corsMiddleware);
 
-// 2️⃣ JSON ve URL encoded body parser
+// Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 3️⃣ Security middleware
+// Security
 app.use(securityHeaders);
 app.use(limiter);
 
-// 4️⃣ Router’ları path ile bağla
+// Routers
 app.use("/", routerHome);
 app.use("/login", routerLogin);
 app.use("/register", routerRegister);

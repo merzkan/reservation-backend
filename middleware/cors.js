@@ -1,11 +1,11 @@
-import cors from 'cors';
+const cors = require("cors");
 
 const allowedOrigins = [
   "http://localhost:5173",
   "https://reservationapp-beta.vercel.app"
 ];
 
-export const corsMiddleware = cors({
+const corsMiddleware = cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
@@ -15,3 +15,5 @@ export const corsMiddleware = cors({
   allowedHeaders: ["Content-Type","Authorization"],
   credentials: true
 });
+
+module.exports = corsMiddleware;

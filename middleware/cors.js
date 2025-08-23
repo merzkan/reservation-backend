@@ -2,7 +2,7 @@ const cors = require("cors");
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://reservationapp-beta.vercel.app"
+  "https://reservationapp-git-main-merzkans-projects.vercel.app"
 ];
 
 const corsMiddleware = cors({

@@ -1,25 +1,18 @@
-const cors = require("cors");
+// middleware/cors.js
+import cors from 'cors';
 
-// İzin verilen origin listesi
 const allowedOrigins = [
-  "http://localhost:5173", // local frontend
-  "https://reservationapp-beta.vercel.app" // prod frontend
+  "http://localhost:5173",
+  "https://reservationapp-beta.vercel.app"
 ];
 
-const corsOptions = {
+export const corsMiddleware = cors({
   origin: function (origin, callback) {
-    // Eğer origin yoksa (Postman gibi) izin ver
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS: Bu origin'e izin verilmiyor! ${origin}`));
-    }
+    if (!origin) return callback(null, true); // Postman gibi origin yoksa izin ver
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: Bu origin'e izin verilmiyor! ${origin}`));
   },
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true, // Cookie vs. izin verir
-};
-
-module.exports = cors(corsOptions);
+  credentials: true
+});

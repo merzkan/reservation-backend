@@ -1,25 +1,25 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const app = express();
-const db = require("./config/db");
-const { securityHeaders, limiter } = require("./middleware/security");
-const cors = require("./middleware/cors")
+import express from "express";
+import dotenv from "dotenv";
+import db from "./config/db.js";
+import { securityHeaders, limiter } from "./middleware/security.js";
+import { corsMiddleware } from "./middleware/cors.js";
 
+import routerUsers from "./router/users.js";
+import routerHome from "./router/home.js";
+import routerLogin from "./router/login.js";
+import routerRegister from "./router/register.js";
+import routerReservation from "./router/reservation.js";
 
 dotenv.config();
 
-const routerUsers = require("./router/users")
-const routerHome = require("./router/home")
-const routerLogin = require("./router/login")
-const routerRegister = require("./router/register")
-const routerReservation = require("./router/reservation")
+const app = express();
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(securityHeaders);
 app.use(limiter);
-app.use(cors)
+app.use(corsMiddleware);
 
 app.use(routerHome);
 app.use(routerLogin);
@@ -27,10 +27,9 @@ app.use(routerRegister);
 app.use(routerUsers);
 app.use(routerReservation);
 
-
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000;
 
 db();
 app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`)
-})
+  console.log(`listening on port ${PORT}`);
+});

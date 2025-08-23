@@ -14,22 +14,30 @@ dotenv.config();
 
 const app = express();
 
+// 1️⃣ CORS en başta olmalı
+app.use(corsMiddleware);
+
+// 2️⃣ JSON ve URL encoded body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 3️⃣ Security middleware
 app.use(securityHeaders);
 app.use(limiter);
-app.use(corsMiddleware);
 
-app.use(routerHome);
-app.use(routerLogin);
-app.use(routerRegister);
-app.use(routerUsers);
-app.use(routerReservation);
+// 4️⃣ Router’ları path ile bağla
+app.use("/", routerHome);
+app.use("/login", routerLogin);
+app.use("/register", routerRegister);
+app.use("/users", routerUsers);
+app.use("/reservation", routerReservation);
 
 const PORT = process.env.PORT || 5000;
 
+// DB bağlantısı
 db();
+
+// Sunucuyu başlat
 app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });

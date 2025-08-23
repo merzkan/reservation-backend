@@ -1,11 +1,10 @@
-import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import helmet from 'helmet';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 
 export const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, // 15 dakika
   max: 100,
   keyGenerator: ipKeyGenerator, // direkt ipKeyGenerator kullan
 });
 
-// Helmet security headers
 export const securityHeaders = helmet();

@@ -1,4 +1,3 @@
-// middleware/cors.js
 import cors from 'cors';
 
 const allowedOrigins = [

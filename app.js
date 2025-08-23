@@ -26,11 +26,11 @@ app.use(securityHeaders);
 app.use(limiter);
 
 // Routers
-app.use("/", routerHome);
-app.use("/login", routerLogin);
-app.use("/register", routerRegister);
-app.use("/users", routerUsers);
-app.use("/reservation", routerReservation);
+app.use(routerHome);
+app.use(routerLogin);
+app.use(routerRegister);
+app.use(routerUsers);
+app.use(routerReservation);
 
 const PORT = process.env.PORT || 5000;
 
